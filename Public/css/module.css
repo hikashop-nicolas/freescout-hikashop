@@ -1,0 +1,13 @@
+.hikashop-panel .panel-title .hikashop-refresh { font-size: 11px; opacity: .6; }
+.hikashop-panel .panel-title .hikashop-refresh:hover { opacity: 1; }
+.hikashop-body.hikashop-loading { opacity: .5; }
+.hikashop-customer { margin-bottom: 10px; }
+.hikashop-list li { padding: 4px 0; }
+.hikashop-list .label { font-weight: normal; }
+.hikashop-tone-neutral { background-color: #777; }
+.hikashop-tone-success { background-color: #5cb85c; }
+.hikashop-tone-warning { background-color: #f0ad4e; }
+.hikashop-tone-danger { background-color: #d9534f; }
+.hikashop-heading { margin: 12px 0 2px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: .03em; color: #72808e; }
+.hikashop-list { margin-bottom: 0; }
+.hikashop-list .label { display: inline-block; margin-top: 2px; white-space: normal; text-align: left; }

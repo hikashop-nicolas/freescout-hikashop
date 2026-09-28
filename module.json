@@ -1,0 +1,22 @@
+{
+    "name": "HikaShop",
+    "alias": "hikashop",
+    "description": "Shows the customer's HikaShop orders, downloads and what your extensions add, beside each conversation.",
+    "version": "1.0.0",
+    "detailsUrl": "https://github.com/hikashop-nicolas/freescout-hikashop",
+    "author": "Hikari Software",
+    "authorUrl": "https://www.hikashop.com",
+    "requiredAppVersion": "1.8.190",
+    "license": "AGPL-3.0",
+    "keywords": ["hikashop", "joomla", "wordpress", "ecommerce", "orders"],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\HikaShop\\Providers\\HikaShopServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

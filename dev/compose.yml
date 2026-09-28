@@ -1,0 +1,54 @@
+# A local FreeScout to develop the module against: the image the hikashop.com
+# desk runs. The module is mounted into the app's Modules folder.
+#   docker compose -f dev/compose.yml up -d     then http://127.0.0.1:8096
+name: freescout-hikashop-dev
+
+services:
+  app:
+    image: nfrastack/freescout:2.2.13
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      TIMEZONE: Europe/Paris
+      APP_URL: http://127.0.0.1:8096
+      DB_TYPE: mysql
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: freescout
+      DB_USER: freescout
+      DB_PASS: freescout-dev
+      ADMIN_EMAIL: admin@example.test
+      ADMIN_FIRST_NAME: Dev
+      ADMIN_LAST_NAME: Admin
+      ADMIN_PASS: freescout-dev-admin
+      ENABLE_AUTO_UPDATE: "FALSE"
+      FREESCOUT_APP_LOCALE: en
+      # Local development only: lets FreeScout reach the shops on this Mac.
+      APP_REMOTE_HOST_WHITE_LIST: host.docker.internal,host.docker.internal:8080,0.250.250.254
+    ports:
+      - "127.0.0.1:8096:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - data:/data
+      - ../:/data/Modules/HikaShop:ro
+
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: freescout-dev-root
+      MYSQL_DATABASE: freescout
+      MYSQL_USER: freescout
+      MYSQL_PASSWORD: freescout-dev
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -pfreescout-dev-root"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  data:
+  db:
