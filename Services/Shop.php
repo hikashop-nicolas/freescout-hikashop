@@ -105,6 +105,7 @@ class Shop
         foreach (array_slice((array)($c['orders'] ?? []), 0, (int)config('hikashop.max_orders', 5)) as $o) {
             $status = $ref['statuses'][$o['status']] ?? ['label' => ucfirst((string)$o['status']), 'color' => ''];
             $orders[] = [
+                'id'     => (int)$o['id'],
                 'number' => $o['number'],
                 'date'   => !empty($o['created']) ? date('M j, Y', (int)$o['created']) : '',
                 'status' => $status['label'],
@@ -146,6 +147,50 @@ class Shop
             ],
             'orders'   => $orders,
             'sections' => $sections,
+        ];
+    }
+
+    // One order's lines and totals, for the popover on its number. Only an order
+    // of one of these addresses: the sidebar never shows another customer's.
+    public static function orderView($shop, $orderId, $emails, $refresh = false)
+    {
+        $key = 'hikashop_o_'.md5($shop['url'].'|'.(int)$orderId);
+        $order = (!$refresh && \Cache::has($key)) ? \Cache::get($key) : null;
+        if ($order === null) {
+            $r = (new Api($shop['url'], $shop['token']))->order($orderId);
+            if (isset($r['error'])) {
+                return ['error' => $r['error']];
+            }
+            $order = $r['data'];
+            \Cache::put($key, $order, now()->addMinutes((int)config('hikashop.cache_minutes', 60)));
+        }
+        $owner = strtolower((string)($order['customer']['email'] ?? ''));
+        if ($owner === '' || !in_array($owner, array_map('strtolower', $emails), true)) {
+            return ['error' => __('This order is not one of this customer\'s.')];
+        }
+
+        $ref = self::reference($shop);
+        $currency = $ref['currencies'][$order['currency_id'] ?? 0] ?? null;
+        $items = [];
+        foreach ((array)($order['items'] ?? []) as $i) {
+            $qty = (int)($i['quantity'] ?? 1);
+            $items[] = [
+                'name'     => (string)($i['name'] ?? ''),
+                'code'     => (string)($i['code'] ?? ''),
+                'quantity' => $qty,
+                'amount'   => self::money(((float)($i['price'] ?? 0) + (float)($i['tax'] ?? 0)) * $qty, $currency),
+            ];
+        }
+        $t = (array)($order['totals'] ?? []);
+        $fees = (array)($order['fees'] ?? []);
+        return [
+            'number'   => (string)($order['number'] ?? ''),
+            'items'    => $items,
+            'shipping' => !empty($t['shipping']) ? self::money($t['shipping'], $currency) : '',
+            'shipping_method' => (string)($fees['shipping']['method_name'] ?? ''),
+            'discount' => !empty($t['discount']) ? self::money($t['discount'], $currency) : '',
+            'total'    => self::money($t['total'] ?? 0, $currency),
+            'payment_method' => (string)($fees['payment']['method_name'] ?? ''),
         ];
     }
 

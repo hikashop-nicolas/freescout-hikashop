@@ -126,6 +126,13 @@ class Session:
         except ValueError:
             return {'status': 'http', 'msg': raw[:200]}
 
+    def order(self, mailbox_id, emails, order_id):
+        raw = self.post('/hikashop/ajax', {'action': 'order', 'order_id': order_id, 'mailbox_id': mailbox_id, 'emails[]': emails})
+        try:
+            return json.loads(raw)
+        except ValueError:
+            return {'status': 'http', 'msg': raw[:200]}
+
     def save_global(self, url, code=''):
         self.get('/app-settings/hikashop')
         return self.post('/app-settings/hikashop', {'settings[hikashop.shop_url]': url, 'hikashop_pairing_code': code})
@@ -218,6 +225,20 @@ def main():
     ok('a customer without orders shows no order list', 'Latest orders' not in h and '0 orders' in h, text_of(h)[:200])
     r = admin.ajax(support, ['not-an-address', 'ANTOINE.FISCHER274@EXAMPLE.COM'])
     ok('invalid addresses are ignored, case does not matter', 'Antoine Fischer' in r.get('html', ''))
+
+    print('order lines')
+    own = shop_sql('j67', "SELECT order_id FROM #__hikashop_order WHERE order_number = 'DEMO00012'")
+    item = shop_sql('j67', "SELECT order_product_name FROM #__hikashop_order_product WHERE order_id = %s ORDER BY order_product_id LIMIT 1" % own)
+    r = admin.order(support, ['antoine.fischer274@example.com'], own)
+    h = r.get('html', '')
+    ok('an order\'s lines come with its products', item.split(' ')[0] in h and '×' in h, text_of(h)[:200])
+    ok('and its total', '775,07 €' in h)
+    ok('the order numbers in the sidebar carry their id', 'data-order="%s"' % own in admin.ajax(support, ['antoine.fischer274@example.com']).get('html', ''))
+    other = shop_sql('j67', "SELECT order_id FROM #__hikashop_order WHERE order_user_id <> 5212 AND order_type = 'sale' ORDER BY order_id LIMIT 1")
+    r = admin.order(support, ['antoine.fischer274@example.com'], other)
+    ok('another customer\'s order is refused', 'not one of this customer' in r.get('html', ''), text_of(r.get('html', ''))[:120])
+    r = admin.order(support, ['antoine.fischer274@example.com'], 99999999)
+    ok('an unknown order gives a readable error', r.get('status') == 'success' and 'text-danger' in r.get('html', ''))
 
     print('cache')
     add_order('j67', 5212, 'FSTEST1', currency_id=2, total=12.5)

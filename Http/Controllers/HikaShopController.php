@@ -23,6 +23,16 @@ class HikaShopController extends Controller
         $emails = array_values(array_filter((array)$request->emails, function ($e) {
             return filter_var($e, FILTER_VALIDATE_EMAIL);
         }));
+
+        // The lines of one order, for the popover on its number.
+        if ($request->action === 'order') {
+            $order = Shop::orderView($shop, (int)$request->order_id, $emails, (bool)$request->refresh);
+            return response()->json([
+                'status' => 'success',
+                'html'   => \View::make('hikashop::partials/order', $order)->render(),
+            ]);
+        }
+
         $view = Shop::customerView($shop, $emails, (bool)$request->refresh);
 
         return response()->json([

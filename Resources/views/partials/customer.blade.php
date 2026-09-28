@@ -20,7 +20,7 @@
             @foreach ($orders as $order)
                 <li>
                     <div>
-                        @if ($order['link'])<a href="{{ $order['link'] }}" target="_blank" rel="noopener">{{ $order['number'] }}</a>@else{{ $order['number'] }}@endif
+                        <a href="{{ $order['link'] ?: '#' }}" @if ($order['link']) target="_blank" rel="noopener" @endif class="hikashop-order" data-order="{{ $order['id'] }}">{{ $order['number'] }}</a>
                         <span class="pull-right">{{ $order['total'] }}</span>
                     </div>
                     <div>

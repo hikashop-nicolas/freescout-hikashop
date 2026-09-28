@@ -59,6 +59,11 @@ class Api
         return $this->request('GET', '/customers/'.(int)$id);
     }
 
+    public function order($id)
+    {
+        return $this->request('GET', '/orders/'.(int)$id);
+    }
+
     public function statuses()
     {
         return $this->request('GET', '/statuses');
