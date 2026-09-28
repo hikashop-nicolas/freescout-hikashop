@@ -59,10 +59,16 @@ FreeScout's database, encrypted with FreeScout's application key.
 docker compose -f dev/compose.yml up -d
 ```
 
-Then open http://127.0.0.1:8096. After recreating the container, run
-`php artisan freescout:module-install hikashop` inside it, as its `nginx` user, to restore the
-link to the module's public files. The compose file whitelists `host.docker.internal` so FreeScout
-may reach a shop on the same machine; never do that on a real installation.
+Then open http://127.0.0.1:8096 (not localhost, whose other cookies can make nginx refuse the
+request), log in, and activate the module in Manage > Modules. Run artisan inside the container as
+its `nginx` user, never as root, or FreeScout can no longer write its cache. The compose file
+whitelists `host.docker.internal` so FreeScout may reach a shop on the same machine; never do that
+on a real installation.
+
+`python3 dev/test.py` runs the end-to-end tests: it logs into that FreeScout over HTTP, pairs it
+with local test shops (a Joomla shop on HikaShop 6.7, one on 6.6, a WordPress one), and checks the
+settings pages, the sidebar, the cache, the failures and the permissions. The shops it expects are
+listed at the top of the file.
 
 ## Licence
 
