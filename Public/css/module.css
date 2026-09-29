@@ -1,5 +1,9 @@
-.hikashop-panel .panel-title .hikashop-refresh { font-size: 11px; opacity: .6; }
-.hikashop-panel .panel-title .hikashop-refresh:hover { opacity: 1; }
+/* FreeScout makes every link of an accordion title a padded block: the refresh icon sits in the
+   heading, left of the fold arrow (floated right), instead of below it. */
+.hikashop-panel .panel-heading { position: relative; }
+.hikashop-panel .panel-title > a.hikashop-refresh { position: absolute; top: 50%; right: 36px; transform: translateY(-50%);
+    display: inline; padding: 0; font-size: 11px; opacity: .6; }
+.hikashop-panel .panel-title > a.hikashop-refresh:hover { opacity: 1; }
 .hikashop-body.hikashop-loading { opacity: .5; }
 .hikashop-customer { margin-bottom: 10px; }
 .hikashop-list li { padding: 4px 0; }

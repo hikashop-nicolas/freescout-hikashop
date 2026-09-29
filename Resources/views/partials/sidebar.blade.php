@@ -5,7 +5,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href=".hikashop-collapse">HikaShop <b class="caret"></b></a>
-                    <a href="#" class="hikashop-refresh pull-right" title="{{ __('Refresh') }}"><i class="glyphicon glyphicon-refresh"></i></a>
+                    <a href="#" class="hikashop-refresh" title="{{ __('Refresh') }}"><i class="glyphicon glyphicon-refresh"></i></a>
                 </h4>
             </div>
             <div class="hikashop-collapse panel-collapse collapse in">
