@@ -34,6 +34,14 @@ services:
       - data:/data
       - ../:/data/Modules/HikaShop:ro
 
+  # Every mail the dev FreeScout sends lands here, never on the internet:
+  # http://127.0.0.1:8026. dev/test.py points the mailboxes and the
+  # notifications at it.
+  mailpit:
+    image: axllent/mailpit:v1.31.3
+    ports:
+      - "127.0.0.1:8026:8025"
+
   db:
     image: mysql:8.4
     environment:

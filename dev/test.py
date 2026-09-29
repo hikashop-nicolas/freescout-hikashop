@@ -160,7 +160,13 @@ $a = \App\User::where('email', '%s')->first();
 if (!$a) { $a = new \App\User(); $a->email = '%s'; $a->first_name = 'Test'; $a->last_name = 'Agent'; $a->role = \App\User::ROLE_USER; }
 $a->password = \Hash::make('%s'); $a->save();
 $a->mailboxes()->sync([\App\Mailbox::where('email', 'support@example.com')->first()->id]);
-foreach (\App\Mailbox::all() as $m) { $m->syncPersonalFolders(); }
+foreach (\App\Mailbox::all() as $m) {
+    $m->syncPersonalFolders();
+    // Mail goes to the dev Mailpit only (compose.yml), never out.
+    $m->out_method = \App\Mailbox::OUT_METHOD_SMTP; $m->out_server = 'mailpit'; $m->out_port = 1025;
+    $m->out_encryption = \App\Mailbox::OUT_ENCRYPTION_NONE; $m->out_username = ''; $m->out_password = ''; $m->save();
+}
+foreach (['mail_driver' => 'smtp', 'mail_host' => 'mailpit', 'mail_port' => 1025, 'mail_encryption' => '', 'mail_username' => '', 'mail_password' => ''] as $k => $v) { \Option::set($k, $v); }
 echo 'mailboxes:'.\App\Mailbox::pluck('id', 'email')->toJson();
 """ % (AGENT[0], AGENT[0], AGENT[1]))
     ids = json.loads(re.search(r'mailboxes:(\{[^}]*\})', tinker("echo 'mailboxes:'.\\App\\Mailbox::pluck('id', 'email')->toJson();")).group(1))

@@ -60,7 +60,9 @@ FreeScout's database, encrypted with FreeScout's application key.
 docker compose -f dev/compose.yml up -d
 ```
 
-Then open http://127.0.0.1:8096 (not localhost, whose other cookies can make nginx refuse the
+It also starts a Mailpit at http://127.0.0.1:8026, where every mail the dev FreeScout sends
+ends up; `dev/test.py` points the mailboxes and the notifications at it. Then open
+http://127.0.0.1:8096 (not localhost, whose other cookies can make nginx refuse the
 request), log in, and activate the module in Manage > Modules. Run artisan inside the container as
 its `nginx` user, never as root, or FreeScout can no longer write its cache. The compose file
 whitelists `host.docker.internal` so FreeScout may reach a shop on the same machine; never do that
