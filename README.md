@@ -43,6 +43,8 @@ settings, then **HikaShop**. A mailbox without one uses the shop of the global s
   whose address the shop does not know gets a short "no customer" line.
 - Their five latest orders: number, date, total in the order's currency, status. Pointing at an
   order's number shows its products, quantities and amounts, its shipping and its total.
+
+  ![An order's products, shown when pointing at its number](docs/order-popover.jpg)
 - Sections from the shop: from HikaShop 6.7.0, the customer's downloads, each with the downloads
   left and the end of its period, flagged when it no longer works; and the sections your other
   extensions add through the connector's `onConnectorElementSections` event.
