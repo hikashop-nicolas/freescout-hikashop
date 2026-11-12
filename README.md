@@ -19,9 +19,12 @@ is nothing to install on the shop.
 
 ## Installation
 
-1. Download this repository and put its content in a folder named `HikaShop` in FreeScout's
-   `Modules` folder.
+1. Download `HikaShop.zip` from the [latest release](https://github.com/hikashop-nicolas/freescout-hikashop/releases/latest)
+   and unzip it in FreeScout's `Modules` folder: it makes a `HikaShop` folder there.
 2. In FreeScout, **Manage > Modules**, activate **HikaShop**.
+
+New versions show in **Manage > Modules**, where FreeScout updates the module from its latest
+release here.
 
 ## Connecting your shop
 

@@ -1,0 +1,27 @@
+name: release
+
+# A tag vX.Y.Z builds HikaShop.zip (the module in a HikaShop/ folder, as FreeScout unpacks it)
+# and version.txt, the two files module.json's latestVersion URLs read.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the tag against module.json
+        run: |
+          v=$(jq -r .version module.json)
+          [ "v$v" = "$GITHUB_REF_NAME" ] || { echo "tag $GITHUB_REF_NAME but module.json says $v"; exit 1; }
+          echo "$v" > version.txt
+      - name: Build HikaShop.zip
+        run: git archive --format=zip --prefix=HikaShop/ -o HikaShop.zip "$GITHUB_REF_NAME"
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" HikaShop.zip version.txt --title "$GITHUB_REF_NAME" --generate-notes
