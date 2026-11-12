@@ -34,6 +34,8 @@ release here.
    within five minutes. The code is used once: FreeScout receives a token of its own, stored
    encrypted, and the device appears in the shop's App Devices list, where you can revoke it.
 
+   ![The HikaShop settings in FreeScout](docs/settings.jpg)
+
 A mailbox can have a shop of its own (several brands on one helpdesk): open the mailbox's
 settings, then **HikaShop**. A mailbox without one uses the shop of the global settings.
 

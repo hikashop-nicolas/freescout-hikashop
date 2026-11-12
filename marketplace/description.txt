@@ -19,6 +19,7 @@
 	<span class="blue_title">Preview</span>
 	<a href="/images/marketplace/freescout_sidebar.jpg" rel="shadowbox[hikashop]"><img src="/images/marketplace/freescout_sidebar.jpg" alt="A support conversation in FreeScout, with the customer's HikaShop orders and downloads beside it" style="max-width:100%; margin:10px 0; cursor:zoom-in;" /></a>
 	<a href="/images/marketplace/freescout_order.jpg" rel="shadowbox[hikashop]"><img src="/images/marketplace/freescout_order.jpg" alt="The products of an order, shown when pointing at its number" style="max-width:100%; margin:10px 0; cursor:zoom-in;" /></a>
+	<a href="/images/marketplace/freescout_settings.jpg" rel="shadowbox[hikashop]"><img src="/images/marketplace/freescout_settings.jpg" alt="The HikaShop settings in FreeScout: the shop address and the pairing code" style="max-width:100%; margin:10px 0; cursor:zoom-in;" /></a>
 </div>
 <div id="product_use"><span class="blue_title">Use</span>
 	<ul>
