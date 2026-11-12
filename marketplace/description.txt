@@ -1,0 +1,35 @@
+<div class="hikashop_product_content">
+<div id="product_features">
+	<p><b>HikaShop for FreeScout</b> is a free module for <a href="https://freescout.net" target="_blank" rel="noopener">FreeScout</a>, the open source help desk. Beside each support conversation, it shows who the customer is in your HikaShop shop: their orders, their downloads and what your other extensions know about them. The answer to "where is my order?" or "my download does not work" is already on the screen, without searching your backend.</p>
+
+	<span class="blue_title">Features</span>
+	<ul>
+		<li>The customer as your shop knows them: how long they have been a customer and how many orders they placed, with a link to their page in your backend. A sender who is not a customer gets a short "no customer" line.</li>
+		<li>Their five latest orders, with their number, date, total in the currency of the order, and status. Pointing at an order's number shows its products, quantities and amounts, its shipping and its total, and each order links to its page in your backend.</li>
+		<li>Their downloads (HikaShop 6.7.0 or newer), each with the downloads left and the end of its period, flagged when it no longer works.</li>
+		<li>The sections your other HikaShop extensions add about a customer through the connector, shown as they come.</li>
+		<li>One shop for the whole help desk, or a shop per mailbox when you run several shops with their own support addresses.</li>
+		<li>Nothing to install on the shop: the module reads it through the connector API of HikaShop Business, the one the HikaShop application uses. It only reads, and never changes anything in your shop.</li>
+		<li>Connected with a pairing code from the App Devices page of your backend: no password is given to FreeScout, and you can revoke it at any time.</li>
+		<li>Only the email addresses of the customers whose conversations you open are sent to your shop. No other service is involved.</li>
+		<li>Updates are offered in FreeScout's Manage&gt;Modules page, and installed from there.</li>
+		<li>Open source (AGPL, like FreeScout), on <a href="https://github.com/hikashop-nicolas/freescout-hikashop" target="_blank" rel="noopener">GitHub</a>.</li>
+	</ul>
+
+	<span class="blue_title">Preview</span>
+	<a href="/images/marketplace/freescout_sidebar.jpg" rel="shadowbox[hikashop]"><img src="/images/marketplace/freescout_sidebar.jpg" alt="A support conversation in FreeScout, with the customer's HikaShop orders and downloads beside it" style="max-width:100%; margin:10px 0; cursor:zoom-in;" /></a>
+	<a href="/images/marketplace/freescout_order.jpg" rel="shadowbox[hikashop]"><img src="/images/marketplace/freescout_order.jpg" alt="The products of an order, shown when pointing at its number" style="max-width:100%; margin:10px 0; cursor:zoom-in;" /></a>
+</div>
+<div id="product_use"><span class="blue_title">Use</span>
+	<ul>
+		<li>Requires HikaShop Business 6.6.0 minimum, on Joomla or WordPress; 6.7.0 or newer for the downloads and the sections of other extensions</li>
+		<li>Requires FreeScout 1.8.190 minimum</li>
+		<li>Free</li>
+		<li>No limit of time</li>
+		<li>No limit of use</li>
+	</ul>
+</div>
+<div id="changelog"><span class="blue_title">Changelog</span>
+	<p>The changes of each version are listed on its <a href="https://github.com/hikashop-nicolas/freescout-hikashop/releases" target="_blank" rel="noopener">release page</a>.</p>
+</div>
+</div>
